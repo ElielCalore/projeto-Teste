@@ -3,6 +3,7 @@ import { NavBar } from "../../Components/NavBar/NavBar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Card } from "../../Components/Card/Card";
+import { ButtonCard } from "../../Components/ButtonCard/ButtonCard";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 export function HomePage() {
@@ -27,6 +28,11 @@ export function HomePage() {
     Movies();
   }, []);
 
+  function handleChangeMovie(current) {
+    console.log(current);
+    setForm({ ...form, movies: [...form.movies, current] });
+  }
+
   function handleChange(e) {
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -35,9 +41,9 @@ export function HomePage() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axios.post("https://ironrest.herokuapp.com/elielcalore", form);
+      await axios.post("https://ironrest.herokuapp.com/elieldscalore", form);
       toast.success("Lista Criada Com Sucesso !");
-      navigate("/card-details");
+      navigate("/lists");
     } catch (err) {
       console.log(err);
     }
@@ -87,15 +93,26 @@ export function HomePage() {
             Criar Lista
           </button>
         </div>
+        <div>
+          <Link className="btn btn-danger" type="button" to="/lists">
+            Listas Criadas
+          </Link>
+        </div>
       </form>
       <div>
         {movies.map((currentMovie) => {
           return (
             <div>
               <Card
+                onClick={handleChangeMovie}
                 image={currentMovie.backdrop_path}
                 title={currentMovie.original_title}
                 id={currentMovie.id}
+              />
+              <ButtonCard
+                onClick={() => {
+                  handleChangeMovie(currentMovie);
+                }}
               />
             </div>
           );

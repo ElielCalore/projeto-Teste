@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 export function Card(props) {
   return (
     <div className="d-flex p-3 flex-column mb-10 ">
@@ -10,7 +9,6 @@ export function Card(props) {
         />
         <div className="card-body">
           <h5 className="card-title">Título do Filme: {props.title}</h5>
-          <button class="btn btn-primary">Adicionar</button>
         </div>
       </div>
     </div>

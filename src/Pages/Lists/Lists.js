@@ -21,17 +21,7 @@ export function Lists() {
 
     AllList();
   }, []);
-  /*
-  async function deleteAllList() {
-    try {
-      await axios.delete(
-        "https://ironrest.herokuapp.com/deleteCollection/elielcalore"
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  }
-*/
+
   return (
     <div>
       <div>
@@ -39,17 +29,7 @@ export function Lists() {
           <NavBar />
         </Link>
       </div>
-      {/*
-      <div>
-        <button
-          onClick={deleteAllList}
-          className="btn btn-danger"
-          type="button"
-        >
-          Deletar Listas
-        </button>
-      </div>
-      */}
+
       <div>
         {data.map((currentData) => {
           console.log(currentData.name);

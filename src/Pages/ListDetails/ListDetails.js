@@ -3,11 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { NavBar } from "../../Components/NavBar/NavBar";
 import { Card } from "../../Components/Card/Card";
+import { useNavigate } from "react-router-dom";
 
 export function ListDetails() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function Details() {
@@ -44,6 +46,7 @@ export function ListDetails() {
     } catch (err) {
       console.log(err);
     }
+    navigate("/lists");
   }
 
   function handleChange(e) {

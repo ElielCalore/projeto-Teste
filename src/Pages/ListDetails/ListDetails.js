@@ -24,14 +24,26 @@ export function ListDetails() {
     Details();
   }, []);
 
-  async function DeleteList() {
+  async function DeleteList(current) {
+    const clone = { ...data };
+    const remove = clone.movies.filter((currentMovie) => {
+      return currentMovie.id !== current.id;
+    });
+    setData({ ...data, movies: remove });
+  }
+
+  async function handleSubmitToSave(e) {
+    delete data._id;
+    e.preventDefault();
     try {
-      await axios.put(`https://ironrest.herokuapp.com/elieldscalore/${id}`);
+      await axios.put(
+        `https://ironrest.herokuapp.com/elieldscalore/${id}`,
+        data
+      );
       setLoading(false);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
-    DeleteList();
   }
 
   function handleChange(e) {
@@ -59,12 +71,24 @@ export function ListDetails() {
                 title={currentMovie.original_title}
                 id={currentMovie.id}
               />
-              <button className="btn btn-danger" onClick={DeleteList}>
-                Deletar o Filme da Lista
+              <button
+                onClick={() => {
+                  DeleteList(currentMovie);
+                }}
+                type="button"
+                className="btn btn-danger"
+              >
+                Remover Filme da Sua Lista!
               </button>
             </div>
           );
         })}
+
+        <div>
+          <button onClick={handleSubmitToSave} className="btn btn-primary">
+            Salvar Alterações!
+          </button>
+        </div>
       </div>
     </div>
   );
